@@ -1,0 +1,132 @@
+<ion-header>
+  <ion-toolbar color="warning">
+    <ion-title>
+      Gas Calculator
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-card>
+
+    <ion-grid>
+      <!--Input item for Pipeline ID and Unit selector-->
+      <ion-row>
+        <ion-col>
+          <ion-item>
+            <ion-label position="floating">Pipeline ID</ion-label>
+            <ion-input type="number" [(ngModel)]="gcIdVal"></ion-input>
+          </ion-item>
+        </ion-col>
+        <ion-col>
+          <ion-item>
+            <ion-label position="floating"></ion-label>
+            <ion-select value="{{ gcIdUnit }}" cancel-text="Dismiss" (ionChange)="changegcIdUnit($event)">
+              <ion-select-option value="in" selected>in</ion-select-option>
+              <ion-select-option value="mm">mm</ion-select-option>
+            </ion-select>
+          </ion-item>
+        </ion-col>
+      </ion-row>
+
+      <!--Input item for line length and Unit selector-->
+      <ion-row>
+        <ion-col>
+          <ion-item>
+            <ion-label position="floating">Line Length</ion-label>
+            <ion-input type="number" [(ngModel)]="gcLengthVal"></ion-input>
+          </ion-item>
+        </ion-col>
+        <ion-col>
+          <ion-item>
+            <ion-label position="floating"></ion-label>
+            <ion-select value="{{ gcLengthUnit }}" cancel-text="Dismiss" (ionChange)="changegcLengthUnit($event)">
+              <ion-select-option value="mi" selected>mi</ion-select-option>
+              <ion-select-option value="km">km</ion-select-option>
+              <ion-select-option value="ft">ft</ion-select-option>
+              <ion-select-option value="m">m</ion-select-option>
+            </ion-select>
+          </ion-item>
+        </ion-col>
+      </ion-row>
+
+      <!--Input item for line Pressure and Unit selector-->
+      <ion-row>
+        <ion-col>
+          <ion-item>
+            <ion-label position="floating">Pressure</ion-label>
+            <ion-input type="number" [(ngModel)]="gcPresVal"></ion-input>
+          </ion-item>
+        </ion-col>
+        <ion-col>
+          <ion-item>
+            <ion-label position="floating"></ion-label>
+            <ion-select value="{{ gcPresUnit }}" cancel-text="Dismiss" (ionChange)="changegcPresUnit($event)">
+              <ion-select-option value="psig" selected>psig</ion-select-option>
+              <ion-select-option value="bar">bar</ion-select-option>
+              <ion-select-option value="atm">atm</ion-select-option>
+              <ion-select-option value="MPa">MPa</ion-select-option>
+            </ion-select>
+          </ion-item>
+        </ion-col>
+      </ion-row>
+      <!--Input item for line length and Unit selector-->
+      <ion-row>
+        <ion-col>
+          <ion-item>
+            <ion-label position="floating">Flow</ion-label>
+            <ion-input type="number" [(ngModel)]="gcFlowVal"></ion-input>
+          </ion-item>
+        </ion-col>
+        <ion-col>
+          <ion-item>
+            <ion-label position="floating"></ion-label>
+            <ion-select value="{{ gcFlowUnit }}" cancel-text="Dismiss" (ionChange)="changegcFlowUnit($event)">
+              <ion-select-option value="mmscfd" selected>mmscfd</ion-select-option>
+              <ion-select-option value="scfd">scfd</ion-select-option>
+              <ion-select-option value="scfm">scfm</ion-select-option>
+            </ion-select>
+          </ion-item>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+
+    <!--Adding buttons below the input area-->
+    <div class="ion-text-end">
+      <ion-button fill="outline" size="small" color="warning" round (click)="onClickClear()">
+        Clear</ion-button>
+      <ion-button round size="small" color="danger" (click)="onClickSubmit()">
+        Compute</ion-button>
+    </div>
+
+  </ion-card>
+
+  <!--Displaying calculations results-->
+  <ion-card>
+    <ion-list>
+      <ion-list-header>
+        Results
+      </ion-list-header>
+  
+      <ion-item color="warning">
+        <p *ngIf="gcidfilled; else gcidnotfilled">
+          Est. Speed : <strong>{{ gcSpeedMph }} </strong>Mph <br>
+        </p>
+        <ng-template #gcidnotfilled>
+          <p>Est. Speed :</p>
+        </ng-template>
+      </ion-item>
+  
+      <ion-item color="danger">
+        <p *ngIf="gccardfilled; else gccardnotfilled">
+          Est. Run Time : <strong>{{ gcRunTimeHr }} </strong>hours <br>
+        </p>
+        <ng-template #gccardnotfilled>
+          <p>Est. Run Time :</p>
+        </ng-template>
+      </ion-item>
+  
+    </ion-list>
+  </ion-card>
+
+</ion-content>

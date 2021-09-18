@@ -1,0 +1,144 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-title>
+      Liquid Calculator
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-card >
+    
+    <ion-grid>
+      <!--Input item for Pipeline ID and Unit selector-->
+      <ion-row>
+        <ion-col>
+          <ion-item>
+            <ion-label position="floating">Pipeline ID</ion-label>  
+            <ion-input type="number" [(ngModel)]="lcIdVal"></ion-input >
+          </ion-item>
+        </ion-col>
+        <ion-col>
+          <ion-item>
+            <ion-label position="floating"></ion-label>
+            <ion-select
+              value="{{ lcIdUnit }}" 
+              cancel-text="Dismiss"
+              (ionChange)="changelcIdUnit($event)"
+            >
+              <ion-select-option value="in" selected>in</ion-select-option>
+              <ion-select-option value="mm">mm</ion-select-option>
+            </ion-select
+            >
+          </ion-item>
+        </ion-col>
+      </ion-row>
+
+      <!--Input item for line length and Unit selector-->
+      <ion-row>
+        <ion-col>
+          <ion-item>
+            <ion-label position="floating">Line Length</ion-label>
+            <ion-input type="number" [(ngModel)]="lcLengthVal"></ion-input>
+          </ion-item>
+        </ion-col>
+        <ion-col>
+          <ion-item>
+            <ion-label position="floating"></ion-label>
+            <ion-select value="{{ lcLengthUnit }}"
+              cancel-text="Dismiss"
+              (ionChange)="changeLcLengthUnit($event)"
+              >
+              <ion-select-option value="mi" selected>mi</ion-select-option>
+              <ion-select-option value="km">km</ion-select-option>
+              <ion-select-option value="ft">ft</ion-select-option>
+              <ion-select-option value="m" >m</ion-select-option>
+            </ion-select>
+          </ion-item>
+        </ion-col>
+      </ion-row>
+
+      <!--Input item for line length and Unit selector-->
+      <ion-row>
+        <ion-col>
+          <ion-item>
+            <ion-label position="floating">Flow</ion-label>
+            <ion-input type="number" [(ngModel)]="lcFlowVal"></ion-input>
+          </ion-item>
+        </ion-col>
+        <ion-col>
+          <ion-item>
+            <ion-label position="floating"></ion-label>
+            <ion-select 
+              value="{{ lcFlowUnit }}" 
+              cancel-text="Dismiss"
+              (ionChange)="changelcFlowUnit($event)"
+            >
+              <ion-select-option value="bph" selected>bph</ion-select-option>
+              <ion-select-option value="bpd">bpd</ion-select-option>
+              <ion-select-option value="bpm">bpm</ion-select-option>
+              <ion-select-option value="gph">gph</ion-select-option>
+              <ion-select-option value="gpm">gpm</ion-select-option>
+              <ion-select-option value="m3/h">m3/h</ion-select-option>
+              <ion-select-option value="m3/s">m3/s</ion-select-option>
+              <ion-select-option value="ft3/h">ft3/h</ion-select-option>
+            </ion-select>
+          </ion-item>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+    
+    <!--Adding buttons below the input area-->
+    <div class="ion-text-end">
+      <ion-button 
+      fill="outline"
+      size="small"
+      color="secondary" 
+      round 
+      (click)="onClickClear()">
+      Clear</ion-button>
+      <ion-button 
+      round
+      size="small" 
+      (click)="onClickSubmit()">
+      Compute</ion-button>
+    </div>    
+        
+  </ion-card >
+  
+  <ion-card>
+    <ion-list>
+      <ion-list-header>
+        Results
+      </ion-list-header>
+
+      <ion-item color="primary">
+        <p *ngIf="idfilled; else idnotfilled">
+         Est. Volume (Line Fill) : <strong>{{ lcVolBbl }} </strong>bbl(us) <br>
+        </p>
+        <ng-template #idnotfilled>
+          <p>Est. Volume :</p>
+        </ng-template>
+      </ion-item>
+
+      <ion-item color="secondary">
+        <p *ngIf="flowfilled; else flownotfilled">
+          Est. Speed : <strong>{{ lcSpeedMph }} </strong>Mph <br>
+        </p>
+        <ng-template #flownotfilled>
+          <p>Est. Speed :</p>
+        </ng-template>
+      </ion-item>
+
+      <ion-item color="primary">
+        <p *ngIf="cardfilled; else cardnotfilled">
+          Est. Run Time : <strong>{{ lcRunTimeHr }} </strong>hours <br>
+        </p>
+        <ng-template #cardnotfilled>
+          <p>Est. Run Time :</p>
+        </ng-template>
+      </ion-item>
+    </ion-list>
+  </ion-card>
+
+</ion-content>
